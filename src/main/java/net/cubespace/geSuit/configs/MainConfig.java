@@ -1,12 +1,13 @@
 package net.cubespace.geSuit.configs;
 
-import java.io.File;
 import net.cubespace.Yamler.Config.Comment;
-import net.cubespace.Yamler.Config.Config;
+import net.cubespace.Yamler.Config.YamlConfig;
 import net.cubespace.geSuit.configs.SubConfig.Database;
 import net.cubespace.geSuit.geSuit;
 
-public class MainConfig extends Config {
+import java.io.File;
+
+public class MainConfig extends YamlConfig {
     public MainConfig() {
         CONFIG_FILE = new File(geSuit.instance.getDataFolder(), "config.yml");
     }
@@ -33,7 +34,7 @@ public class MainConfig extends Config {
     public Boolean MOTD_Enabled = true;
     @Comment("Turn this to false if you want to use your your regular /seen comand (requires restart)")
     public Boolean Seen_Enabled = false;
-    
+
     @Comment()
     public Boolean NewPlayerBroadcast = true;
     public Boolean BroadcastProxyConnectionMessages = true;

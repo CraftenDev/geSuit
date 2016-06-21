@@ -20,8 +20,8 @@ public class BansListener implements Listener {
 
     @EventHandler
     public void banCheck(LoginEvent e) throws SQLException {
-        if (DatabaseManager.bans.isPlayerBanned(e.getConnection().getName(), ((FeatureDetector.canUseUUID()) ? e.getConnection().getUUID() : null), e.getConnection().getAddress().getHostString())) {
-            Ban b = DatabaseManager.bans.getBanInfo(e.getConnection().getName(), ((FeatureDetector.canUseUUID()) ? e.getConnection().getUUID() : null), e.getConnection().getAddress().getHostString());
+        if (DatabaseManager.bans.isPlayerBanned(e.getConnection().getName(), ((FeatureDetector.canUseUUID()) ? e.getConnection().getUniqueId().toString() : null), e.getConnection().getAddress().getHostString())) {
+            Ban b = DatabaseManager.bans.getBanInfo(e.getConnection().getName(), ((FeatureDetector.canUseUUID()) ? e.getConnection().getUniqueId().toString() : null), e.getConnection().getAddress().getHostString());
 
             if (b == null) {
                 return;

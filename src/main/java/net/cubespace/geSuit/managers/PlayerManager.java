@@ -7,6 +7,7 @@ import net.cubespace.geSuit.geSuit;
 import net.cubespace.geSuit.objects.GSPlayer;
 import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 
 import java.text.SimpleDateFormat;
@@ -23,7 +24,7 @@ public class PlayerManager {
 
     public static boolean playerExists(ProxiedPlayer player, boolean uuid) {
         return getPlayer(player.getName()) != null
-                || (uuid) ? DatabaseManager.players.playerExists(player.getUUID()) : DatabaseManager.players.playerExists(player.getName());
+                || (uuid) ? DatabaseManager.players.playerExists(player.getUniqueId().toString()) : DatabaseManager.players.playerExists(player.getName());
     }
 
     public static void loadPlayer(ProxiedPlayer player) {
@@ -31,12 +32,12 @@ public class PlayerManager {
             boolean tps;
 
             if (FeatureDetector.canUseUUID()) {
-                tps = DatabaseManager.players.getPlayerTPS(player.getUUID());
+                tps = DatabaseManager.players.getPlayerTPS(player.getUniqueId().toString());
             } else {
                 tps = DatabaseManager.players.getPlayerTPS(player.getName());
             }
 
-            GSPlayer gsPlayer = new GSPlayer(player.getName(), (FeatureDetector.canUseUUID()) ? player.getUUID() : null, tps, player.getAddress().getHostString());
+            GSPlayer gsPlayer = new GSPlayer(player.getName(), (FeatureDetector.canUseUUID()) ? player.getUniqueId().toString() : null, tps, player.getAddress().getHostString());
             onlinePlayers.put(player.getName(), gsPlayer);
 
             DatabaseManager.players.updatePlayer(gsPlayer);
@@ -51,7 +52,7 @@ public class PlayerManager {
 
     private static void createNewPlayer(final ProxiedPlayer player) {
         String ip = player.getAddress().getAddress().toString();
-        final GSPlayer gsPlayer = new GSPlayer(player.getName(), (FeatureDetector.canUseUUID()) ? player.getUUID() : null, true);
+        final GSPlayer gsPlayer = new GSPlayer(player.getName(), (FeatureDetector.canUseUUID()) ? player.getUniqueId().toString() : null, true);
 
         DatabaseManager.players.insertPlayer(gsPlayer, ip.substring(1, ip.length()));
 
@@ -96,7 +97,7 @@ public class PlayerManager {
 
         // Not exactly sure where we use the new line besides in the soon-to-be-removed MOTD...
         for (String line : Utilities.colorize(message).split("\n")) {
-            target.sendMessage(line);
+            target.sendMessage(TextComponent.fromLegacyText(line));
         }
     }
 

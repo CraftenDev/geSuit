@@ -39,7 +39,7 @@ public class DatabaseUpdateRowUUID implements Runnable
         String uuid;
         ProxiedPlayer player = ProxyServer.getInstance().getPlayer(playerName);
         if (player != null && FeatureDetector.canUseUUID()) {
-            uuid = player.getUUID();
+            uuid = player.getUniqueId().toString().replaceAll("-", "");
         } else {
             uuid = Utilities.getUUID(playerName);
         }

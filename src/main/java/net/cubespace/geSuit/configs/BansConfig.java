@@ -1,11 +1,11 @@
 package net.cubespace.geSuit.configs;
 
+import net.cubespace.Yamler.Config.YamlConfig;
 import net.cubespace.geSuit.geSuit;
-import net.cubespace.Yamler.Config.Config;
 
 import java.io.File;
 
-public class BansConfig extends Config {
+public class BansConfig extends YamlConfig {
     public BansConfig() {
         CONFIG_FILE = new File(geSuit.instance.getDataFolder(), "bans.yml");
     }

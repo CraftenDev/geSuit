@@ -1,18 +1,18 @@
 package net.cubespace.geSuit.managers;
 
-import java.sql.Date;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.List;
-
 import net.cubespace.Yamler.Config.InvalidConfigurationException;
 import net.cubespace.geSuit.Utilities;
 import net.cubespace.geSuit.objects.Ban;
 import net.cubespace.geSuit.objects.GSPlayer;
 import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.CommandSender;
 import net.md_5.bungee.api.ProxyServer;
+import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
 
 public class BansManager {
 
@@ -182,7 +182,7 @@ public class BansManager {
 
     public static void disconnectPlayer(ProxiedPlayer player, String message) {
         PlayerManager.unloadPlayer(player.getName());
-        player.disconnect(Utilities.colorize(message));
+        player.disconnect(TextComponent.fromLegacyText(Utilities.colorize(message)));
     }
 
     public static void reloadBans(String sender) {
